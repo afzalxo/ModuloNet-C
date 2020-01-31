@@ -1,5 +1,6 @@
 #include "utils.h"
 
+//Loads num_imgs from the input image csv file into the variable pointed to by imgs
 void load_input_images(uint32_t num_imgs, int16_t imgs[][784]){
 	FILE *img_f = fopen("mnist_int_images.csv", "r");
 	if(img_f == NULL){
@@ -32,6 +33,13 @@ void printmat_uint16(uint32_t dim0, uint32_t dim1, uint16_t mat[][dim1]){
 	}
 }
 
+//Implements the logic to find the correct output class out of the 10 classes. The logic
+//is as follows:
+//	- Check for max of the 10 nodes under the constrain that the max is less than k/2
+//	- If such a max exists (i.e. Atleast one of the class scores is less than k/2), 
+//	  output the node number corresponding to that max score
+//	- If no such max exists, find the global maximum of the 10 nodes, output the
+//	  node number corresponding to the global max.
 void modulo_argmax(uint32_t dim0, uint32_t dim1, uint16_t modk, uint16_t inp[][dim1], uint16_t out[]){
 	int cur_modmax = -1;
 	int modmax_ind = -1;
