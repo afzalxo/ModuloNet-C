@@ -2,7 +2,7 @@
 #include "globals.h"
 
 //Loads weights and biases into the variables pointed to by the input pointers
-void load_pretrained_model(int16_t w0[784][4096], int16_t w1[4096][4096], int16_t w2[4096][4096], int16_t w3[4096][10], int16_t b0[784], int16_t b1[4096], int16_t b2[4096], int16_t b3[10]){
+void load_pretrained_model(int16_t w0[784][4096], int16_t w1[4096][4096], int16_t w2[4096][4096], int16_t w3[4096][10], int16_t b0[4096], int16_t b1[4096], int16_t b2[4096], int16_t b3[10]){
 	FILE *w0_f = fopen("./trained_model/l0_w.txt", "r");
 	if(w0_f == NULL){
 		printf("Error opening l0_w.txt\r\n");
@@ -62,7 +62,8 @@ void load_pretrained_model(int16_t w0[784][4096], int16_t w1[4096][4096], int16_
 	fclose(biases_fptr);
 }
 
-
+//Takes as input the image matrix of shape (in_dim0, in_dim1)=(Batch Size, 784) and prints 
+//the class(es) corresponding to the inputs
 void modulonet_mlp(uint32_t in_dim0, uint32_t in_dim1, int16_t inp[][in_dim1]){
 	uint16_t k0 = 32768, k1 = 1024, k2 = 1024, k3 = 8192;
 	//Allocating memory on heap for storing trained model

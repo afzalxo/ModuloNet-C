@@ -35,6 +35,8 @@ void _bias_add(uint32_t dim0, uint32_t dim1, int16_t inp[][dim1], int16_t biases
 	}
 }
 
+//Implements y=xw + b where both x and w are matrices. w is a bin matrix 
+//while x is bin for all layers except layer 0.
 void bin_dense_layer(uint32_t inp_dim0, uint32_t inp_dim1, uint32_t num_nodes, int16_t inp[][inp_dim1], int16_t in_w[][num_nodes], int16_t in_b[], int16_t layer_out[][num_nodes]){
 	
 	int16_t (*xw_out)[num_nodes] = malloc(sizeof(int16_t[inp_dim0][num_nodes]));
@@ -46,7 +48,8 @@ void bin_dense_layer(uint32_t inp_dim0, uint32_t inp_dim1, uint32_t num_nodes, i
 }
 
 //It seems that % operator in C99 is a remainder operator and not the modulo we need.
-//Whatever that means. Please see the following link to try and understand. 
+//Behaviour of % is different from tf.floormod operation for negative inputs.
+//Please see the following link to try and understand. 
 //https://stackoverflow.com/questions/11720656/modulo-operation-with-negative-numbers
 void mod_layer(uint32_t dim0, uint32_t dim1, uint16_t k_val, int16_t inp[][dim1], uint16_t out[][dim1]){
 	int32_t r = 0;
