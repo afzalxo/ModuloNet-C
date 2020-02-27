@@ -1,0 +1,4 @@
+./modulonet_mlp_mnist/trained_model
+./modulonet_mlp_mnist/old_reference
+./modulonet_mlp_mnist/mnist_dataset_csv
+./modulonet_mlp_mnist/new_dir
